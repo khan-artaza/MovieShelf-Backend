@@ -25,7 +25,11 @@ async function registerController(req, res) {
 
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY);
 
-  res.cookie("token", token);
+  res.cookie("token", token , {
+    httpOnly: true,
+    secure: true,       // important for HTTPS
+    sameSite: "none"    // allows cross-site cookies (Vercel ↔ Render)
+  });
 
   return res.status(201).json({
     message: "user created successfully",
@@ -55,7 +59,11 @@ async function loginController(req, res) {
   }
 
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY);
-  res.cookie("token", token);
+  res.cookie("token", token , {
+    httpOnly: true,
+    secure: true,       // important for HTTPS
+    sameSite: "none"    // allows cross-site cookies (Vercel ↔ Render)
+  });
 
   return res.status(200).json({
     message: "User logged in successfully!",

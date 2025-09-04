@@ -6,8 +6,6 @@ async function authMiddleware(req, res, next) {
   console.log(token);
 
 
-  
-
   if (!token) {
     return res.status(401).json({
       message: "Unauthorized user - Please login first to wishlst movies!",
